@@ -232,19 +232,8 @@ target_link_libraries(randomx-tests
 set_property(TARGET randomx-tests PROPERTY POSITION_INDEPENDENT_CODE ON)
 set_property(TARGET randomx-tests PROPERTY CXX_STANDARD 11)
 
-set_property(TARGET randomx-codegen PROPERTY POSITION_INDEPENDENT_CODE ON)
-set_property(TARGET randomx-codegen PROPERTY CXX_STANDARD 11)
-
 if(NOT Threads_FOUND AND UNIX AND NOT APPLE)
   set(THREADS_PREFER_PTHREAD_FLAG ON)
   find_package(Threads)
 endif()
 
-include(CheckCXXSourceCompiles)
-check_cxx_source_compiles("
-#include <cstdint>
-#include <atomic>
-int main() {
-  std::atomic<uint64_t> a;
-  a.is_lock_free();
-}" HAVE_CXX_ATOMICS)
