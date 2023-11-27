@@ -34,6 +34,7 @@ Final reports from all four audits are available in the [audits](audits/) direct
 ## Build
 
 RandomX is written in C++11 and builds a static library with a C API provided by header file [randomx.h](src/randomx.h). Minimal API usage example is provided in [api-example1.c](src/tests/api-example1.c). The reference code includes a `randomx-benchmark` and `randomx-tests` executables for testing.
+RandomX-Wasm requires that you do `emcmake cmake; emmake make` rather than `cmake; make` because this is for the web.
 
 ### Linux
 
