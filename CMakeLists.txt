@@ -61,8 +61,6 @@ if(NOT ARCH_ID)
   string(TOLOWER "${CMAKE_SYSTEM_PROCESSOR}" ARCH_ID)
 endif()
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s LINKABLE=1 -s EXPORT_ALL=1")
-
 if(NOT ARM_ID)
   set(ARM_ID "${ARCH_ID}")
 endif()
