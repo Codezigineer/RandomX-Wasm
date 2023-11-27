@@ -30,6 +30,9 @@ cmake_minimum_required(VERSION 3.5)
 
 project(RandomX)
 
+# Required. See https://github.com/WebAssembly/design/blob/master/Semantics.md#floating-point-operators. ASM.js doesn't have that issue.
+set(EMSCRIPTEN_FLAGS "-s USE_ASMJS=1")
+
 set(randomx_sources
 src/aes_hash.cpp
 src/argon2_ref.c
