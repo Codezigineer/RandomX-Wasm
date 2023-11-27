@@ -51,7 +51,6 @@ src/blake2_generator.cpp
 src/instructions_portable.cpp
 src/reciprocal.c
 src/virtual_machine.cpp
-src/vm_compiled_light.cpp
 src/blake2/blake2b.c)
 
 if(NOT ARCH_ID)
