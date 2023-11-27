@@ -42,11 +42,9 @@ src/soft_aes.cpp
 src/virtual_memory.c
 src/vm_interpreted.cpp
 src/allocator.cpp
-src/assembly_generator_x86.cpp
 src/instruction.cpp
 src/randomx.cpp
 src/superscalar.cpp
-src/vm_compiled.cpp
 src/vm_interpreted_light.cpp
 src/argon2_core.c
 src/blake2_generator.cpp
