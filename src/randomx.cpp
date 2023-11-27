@@ -30,8 +30,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "dataset.hpp"
 #include "vm_interpreted.hpp"
 #include "vm_interpreted_light.hpp"
-#include "vm_compiled.hpp"
-#include "vm_compiled_light.hpp"
 #include "blake2/blake2.h"
 #include "cpu.hpp"
 #include <cassert>
@@ -86,11 +84,7 @@ extern "C" {
 					break;
 
 				case RANDOMX_FLAG_JIT:
-					cache->dealloc = &randomx::deallocCache<randomx::DefaultAllocator>;
-					cache->jit = new randomx::JitCompiler();
-					cache->initialize = &randomx::initCacheCompile;
-					cache->datasetInit = cache->jit->getDatasetInitFunc();
-					cache->memory = (uint8_t*)randomx::DefaultAllocator::allocMemory(randomx::CacheSize);
+					return nullptr;
 					break;
 
 				case RANDOMX_FLAG_LARGE_PAGES:
@@ -102,11 +96,7 @@ extern "C" {
 					break;
 
 				case RANDOMX_FLAG_JIT | RANDOMX_FLAG_LARGE_PAGES:
-					cache->dealloc = &randomx::deallocCache<randomx::LargePageAllocator>;
-					cache->jit = new randomx::JitCompiler();
-					cache->initialize = &randomx::initCacheCompile;
-					cache->datasetInit = cache->jit->getDatasetInitFunc();
-					cache->memory = (uint8_t*)randomx::LargePageAllocator::allocMemory(randomx::CacheSize);
+					return nullptr;
 					break;
 
 				default:
@@ -221,21 +211,11 @@ extern "C" {
 					break;
 
 				case RANDOMX_FLAG_JIT:
-					if (flags & RANDOMX_FLAG_SECURE) {
-						vm = new randomx::CompiledLightVmDefaultSecure();
-					}
-					else {
-						vm = new randomx::CompiledLightVmDefault();
-					}
+					return nullptr;
 					break;
 
 				case RANDOMX_FLAG_FULL_MEM | RANDOMX_FLAG_JIT:
-					if (flags & RANDOMX_FLAG_SECURE) {
-						vm = new randomx::CompiledVmDefaultSecure();
-					}
-					else {
-						vm = new randomx::CompiledVmDefault();
-					}
+					return nullptr;
 					break;
 
 				case RANDOMX_FLAG_HARD_AES:
@@ -247,21 +227,11 @@ extern "C" {
 					break;
 
 				case RANDOMX_FLAG_JIT | RANDOMX_FLAG_HARD_AES:
-					if (flags & RANDOMX_FLAG_SECURE) {
-						vm = new randomx::CompiledLightVmHardAesSecure();
-					}
-					else {
-						vm = new randomx::CompiledLightVmHardAes();
-					}
+					return nullptr;
 					break;
 
 				case RANDOMX_FLAG_FULL_MEM | RANDOMX_FLAG_JIT | RANDOMX_FLAG_HARD_AES:
-					if (flags & RANDOMX_FLAG_SECURE) {
-						vm = new randomx::CompiledVmHardAesSecure();
-					}
-					else {
-						vm = new randomx::CompiledVmHardAes();
-					}
+					return nullptr;
 					break;
 
 				case RANDOMX_FLAG_LARGE_PAGES:
@@ -273,21 +243,11 @@ extern "C" {
 					break;
 
 				case RANDOMX_FLAG_JIT | RANDOMX_FLAG_LARGE_PAGES:
-					if (flags & RANDOMX_FLAG_SECURE) {
-						vm = new randomx::CompiledLightVmLargePageSecure();
-					}
-					else {
-						vm = new randomx::CompiledLightVmLargePage();
-					}
+					return nullptr;
 					break;
 
 				case RANDOMX_FLAG_FULL_MEM | RANDOMX_FLAG_JIT | RANDOMX_FLAG_LARGE_PAGES:
-					if (flags & RANDOMX_FLAG_SECURE) {
-						vm = new randomx::CompiledVmLargePageSecure();
-					}
-					else {
-						vm = new randomx::CompiledVmLargePage();
-					}
+					return nullptr;
 					break;
 
 				case RANDOMX_FLAG_HARD_AES | RANDOMX_FLAG_LARGE_PAGES:
@@ -299,21 +259,11 @@ extern "C" {
 					break;
 
 				case RANDOMX_FLAG_JIT | RANDOMX_FLAG_HARD_AES | RANDOMX_FLAG_LARGE_PAGES:
-					if (flags & RANDOMX_FLAG_SECURE) {
-						vm = new randomx::CompiledLightVmLargePageHardAesSecure();
-					}
-					else {
-						vm = new randomx::CompiledLightVmLargePageHardAes();
-					}
+					return nullptr;
 					break;
 
 				case RANDOMX_FLAG_FULL_MEM | RANDOMX_FLAG_JIT | RANDOMX_FLAG_HARD_AES | RANDOMX_FLAG_LARGE_PAGES:
-					if (flags & RANDOMX_FLAG_SECURE) {
-						vm = new randomx::CompiledVmLargePageHardAesSecure();
-					}
-					else {
-						vm = new randomx::CompiledVmLargePageHardAes();
-					}
+					return nullptr;
 					break;
 
 				default:
