@@ -232,11 +232,6 @@ target_link_libraries(randomx-tests
 set_property(TARGET randomx-tests PROPERTY POSITION_INDEPENDENT_CODE ON)
 set_property(TARGET randomx-tests PROPERTY CXX_STANDARD 11)
 
-add_executable(randomx-codegen
-  src/tests/code-generator.cpp)
-target_link_libraries(randomx-codegen
-  PRIVATE randomx)
-
 set_property(TARGET randomx-codegen PROPERTY POSITION_INDEPENDENT_CODE ON)
 set_property(TARGET randomx-codegen PROPERTY CXX_STANDARD 11)
 
