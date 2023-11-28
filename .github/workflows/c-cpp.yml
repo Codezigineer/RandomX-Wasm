@@ -67,6 +67,7 @@ jobs:
         chmod +x ./emsdk
         ./emsdk install latest
         ./emsdk activate latest
+        source ./emsdk_env.sh
         cd ..
 
 
@@ -105,5 +106,5 @@ jobs:
         ./emsdk install latest
         ./emsdk activate latest
         cd ..
-        brew install emscripten
+        source ./emsdk_env.sh
         bash ./build.sh
