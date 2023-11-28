@@ -43,10 +43,7 @@ jobs:
     - name: Build RandomX
       shell: alpine.sh {0}
       run: |
-        mkdir build
-        cd build
-        cmake ..
-        make -j$(nproc)
+        bash ./build.sh
 
     - name: Run tests
       shell: alpine.sh {0}
@@ -78,10 +75,7 @@ jobs:
 
     - name: Build RandomX
       run: |
-        mkdir build
-        cd build
-        cmake ..
-        make -j$(nproc)
+        bash ./build.sh
 
     - name: Run tests
       run: |
@@ -107,10 +101,7 @@ jobs:
 
     - name: Build RandomX
       run: |
-        mkdir build
-        cd build
-        cmake ..
-        make -j3
+        bash ./build.sh
 
     - name: Run tests
       run: |
@@ -148,8 +139,4 @@ jobs:
         version: ${{ matrix.os.version }}
         shell: bash
         run: |
-          sudo pkg install -y cmake
-          mkdir build && cd build
-          cmake ..
-          make -j2
-          ./randomx-tests
+          bash ./build.sh
