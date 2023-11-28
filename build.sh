@@ -1,0 +1,2 @@
+FILES="src/aes_hash.cpp src/argon2_ref.c src/bytecode_machine.cpp src/cpu.cpp src/dataset.cpp src/soft_aes.cpp src/virtual_memory.c src/vm_interpreted.cpp src/allocator.cpp src/instruction.cpp src/randomx.cpp src/superscalar.cpp src/vm_interpreted_light.cpp src/argon2_core.c src/blake2_generator.cpp src/instructions_portable.cpp src/reciprocal.c src/virtual_machine.cpp src/blake2/blake2b.c"
+emcc $FILES -sWASM=0 -sEXPORT_ALL=1 -sLINKABLE=1 -o rx.js
