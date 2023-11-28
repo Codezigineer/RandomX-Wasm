@@ -104,5 +104,6 @@ jobs:
         chmod +x ./emsdk
         ./emsdk install latest
         ./emsdk activate latest
+        ls -lah
         sed -i '.bak' '1s/^/source ./emsdk_env.sh\'$'\n/g' build.sh
         bash ./build.sh
