@@ -49,7 +49,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "blake2/endian.h"
 #include "argon2.h"
 #include "argon2_core.h"
-#include "jit_compiler.hpp"
+//#include "jit_compiler.hpp"
 #include "intrin_portable.h"
 
 static_assert(RANDOMX_ARGON_MEMORY % (RANDOMX_ARGON_LANES * ARGON2_SYNC_POINTS) == 0, "RANDOMX_ARGON_MEMORY - invalid value");
@@ -61,8 +61,8 @@ namespace randomx {
 	void deallocCache(randomx_cache* cache) {
 		if (cache->memory != nullptr)
 			Allocator::freeMemory(cache->memory, CacheSize);
-		if (cache->jit != nullptr)
-			delete cache->jit;
+		/*if (cache->jit != nullptr)
+			delete cache->jit;*/ // see lines 141-148
 	}
 
 	template void deallocCache<DefaultAllocator>(randomx_cache* cache);
@@ -138,14 +138,14 @@ namespace randomx {
 			}
 		}
 	}
-
-	void initCacheCompile(randomx_cache* cache, const void* key, size_t keySize) {
+	/// @bug TODO: Maybe, just maybe, we could make a JIT?
+	/*void initCacheCompile(randomx_cache* cache, const void* key, size_t keySize) {
 		initCache(cache, key, keySize);
 		cache->jit->enableWriting();
 		cache->jit->generateSuperscalarHash(cache->programs, cache->reciprocalCache);
 		cache->jit->generateDatasetInitCode();
 		cache->jit->enableExecution();
-	}
+	}*/
 
 	constexpr uint64_t superscalarMul0 = 6364136223846793005ULL;
 	constexpr uint64_t superscalarAdd1 = 9298411001130361340ULL;
