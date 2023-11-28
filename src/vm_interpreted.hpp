@@ -33,7 +33,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "common.hpp"
 #include "virtual_machine.hpp"
 #include "bytecode_machine.hpp"
-#include "intrin_portable.h"
 #include "allocator.hpp"
 
 namespace randomx {
