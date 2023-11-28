@@ -62,8 +62,13 @@ jobs:
         sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
         sudo apt update
         sudo apt install -y git build-essential ${{ matrix.config.c }} ${{ matrix.config.cpp }}
-        wget -c http://archive.ubuntu.com/ubuntu/pool/universe/e/emscripten/emscripten_1.22.1-1build1_amd64.deb
-        sudo apt install ./emscripten_1.22.1-1build1_amd64.deb
+        git clone https://github.com/emscripten-core/emsdk.git
+        cd emsdk
+        chmod +x ./emsdk
+        ./emsdk install latest
+        ./emsdk activate latest
+        cd ..
+
 
     - name: Checkout repository
       uses: actions/checkout@v3
@@ -94,5 +99,11 @@ jobs:
 
     - name: Build RandomX
       run: |
+        git clone https://github.com/emscripten-core/emsdk.git
+        cd emsdk
+        chmod +x ./emsdk
+        ./emsdk install latest
+        ./emsdk activate latest
+        cd ..
         brew install emscripten
         bash ./build.sh
