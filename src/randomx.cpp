@@ -47,20 +47,6 @@ extern "C" {
 	randomx_flags randomx_get_flags() {
 		randomx_flags flags = RANDOMX_HAVE_COMPILER ? RANDOMX_FLAG_JIT : RANDOMX_FLAG_DEFAULT;
 		randomx::Cpu cpu;
-#ifdef RANDOMX_FORCE_SECURE
-		if (flags == RANDOMX_FLAG_JIT) {
-			flags |= RANDOMX_FLAG_SECURE;
-		}
-#endif
-		if (HAVE_AES && cpu.hasAes()) {
-			flags |= RANDOMX_FLAG_HARD_AES;
-		}
-		if (randomx_argon2_impl_avx2() != nullptr && cpu.hasAvx2()) {
-			flags |= RANDOMX_FLAG_ARGON2_AVX2;
-		}
-		if (randomx_argon2_impl_ssse3() != nullptr && cpu.hasSsse3()) {
-			flags |= RANDOMX_FLAG_ARGON2_SSSE3;
-		}
 		return flags;
 	}
 
@@ -77,7 +63,7 @@ extern "C" {
 			switch ((int)(flags & (RANDOMX_FLAG_JIT | RANDOMX_FLAG_LARGE_PAGES))) {
 				case RANDOMX_FLAG_DEFAULT:
 					cache->dealloc = &randomx::deallocCache<randomx::DefaultAllocator>;
-					cache->jit = nullptr;
+//					cache->jit = nullptr;
 					cache->initialize = &randomx::initCache;
 					cache->datasetInit = &randomx::initDataset;
 					cache->memory = (uint8_t*)randomx::DefaultAllocator::allocMemory(randomx::CacheSize);
@@ -89,7 +75,7 @@ extern "C" {
 
 				case RANDOMX_FLAG_LARGE_PAGES:
 					cache->dealloc = &randomx::deallocCache<randomx::LargePageAllocator>;
-					cache->jit = nullptr;
+//					cache->jit = nullptr;
 					cache->initialize = &randomx::initCache;
 					cache->datasetInit = &randomx::initDataset;
 					cache->memory = (uint8_t*)randomx::LargePageAllocator::allocMemory(randomx::CacheSize);
